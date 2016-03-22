@@ -1,0 +1,34 @@
+{{extend 'layout.html'}}
+<style>
+    
+    a{
+        color:lightblue
+    }
+    .box{
+    width: 300px;
+    height: 380px;
+    border: 1px solid white;
+        }
+    .innerbox{
+        position: relative;
+        left : 400px;
+        top : -350px;
+        width: 200px;
+        height : 50px;
+        border : 0px solid green;
+             }
+    h4{
+        color : white;
+      }
+    a {
+        color : white;
+      }
+</style>
+{{for p in twomen:}}
+  <tr>
+        <div class="box"><td><img src="{{=URL('download',args=p.image)}}" height="300px" width="300px"/></td>
+      <h4><br/>{{=(A(p.name, _href=URL("show" ,args=p.id)))}} - INR {{=p.price}}</h4></td>
+        </div>
+<div class="innerbox"><td><h3>Description</h3> <br/> {{=(p.description)}}</td></div>    
+  </tr>
+{{pass}}

@@ -1,0 +1,32 @@
+{{extend 'layout.html'}}
+<style>
+    
+    a{
+        color:lightblue
+    }
+    .box{
+    width: 300px;
+    height: 380px;
+    border: 1px solid white;
+        }
+    .innerbox{
+        position: relative;
+        left : 400px;
+        top : -350px;
+        width: 200px;
+        height : 50px;
+        border : 0px solid green;
+             }
+    h4{
+        color : red;
+      }
+    a {
+        color : white;
+      }
+</style>
+<h4>{{=p.name}} Details</h4>
+        <div class="box"><img src="{{=URL('download',args=p.image)}}" height="300px" width="300px"/>
+      <h4><br/>{{=(A(p.name, _href=URL("show" ,args=p.id)))}} - INR {{=p.price}}</h4>
+        </div>
+<div class="innerbox"><td><h3>Description</h3> <br/> {{=(p.description)}}</div>
+<div class="cart"><span id="{{="item%s"%p.id}}">{{=session.cart.get(p.id,0)}}</span> in cart - {{=A('add to cart',callback=URL('cart_callback',vars=dict(id=p.id,action='add',url='show')),target='item%s'%p.id,_class='button pill')}}</div>

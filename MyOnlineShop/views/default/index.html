@@ -1,0 +1,72 @@
+{{extend 'layout.html'}}
+<style>
+@keyframes fadey {
+0% { opacity: 0; }
+15% { opacity: 1; }
+85% { opacity: 1; }
+100% { opacity: 0; }
+}
+figure#slideshow { width: 100%; margin: 0 auto; position: relative; }
+figure#slideshow img {
+position: absolute; left: 0; top: 0;
+width: 100%; height: auto; opacity: 0;
+}
+figure#slideshow img:first-child { position: relative; }
+.Search{
+    position:relative;
+    top:-100px;
+    left:800px;
+}
+.Searchr{
+        position:absolute;
+        left:1100px;
+        top:190px;
+    }
+    a{
+        color:lightblue
+    }
+</style>
+<script>
+window.onload = function() {
+imgs = document.getElementById('slideshow').children;
+interval = 3000;
+currentPic = 0;
+imgs[currentPic].style.webkitAnimation = 'fadey '+interval+'ms';
+imgs[currentPic].style.animation = 'fadey '+interval+'ms';
+var infiniteLoop = setInterval(function(){
+imgs[currentPic].removeAttribute('style');
+if ( currentPic == imgs.length - 1) { currentPic = 0; } else { currentPic++; }
+imgs[currentPic].style.webkitAnimation = 'fadey '+interval+'ms';
+imgs[currentPic].style.animation = 'fadey '+interval+'ms';
+}, interval);
+}
+</script>
+<div class="Search">{{=form}}</div>
+<div class="Searchr">{{if products:}}
+<br/><br/>
+<table>
+    <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  {{for pro in products:}}
+  <tr>
+      <td>{{=(A(pro.name, _href=URL("show" ,args=pro.id)))}}</td>
+  </tr>
+  {{pass}}
+</table>
+{{elif request.vars:}}
+No results
+{{else:}}
+{{pass}}
+</div>
+<div id="Container">
+    <figure id="slideshow">
+         {{for pic in p:}}
+ <img width="900px"
+      height="600px"
+ src="{{=URL('download', args=pic.image)}}" />
+ {{pass}}
+    </figure>
+</div>
